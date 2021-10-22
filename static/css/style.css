@@ -1,0 +1,12 @@
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: black;
+    color: blanchedalmond;
+}
+
+img {
+    width: 100%;
+}
