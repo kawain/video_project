@@ -1,6 +1,8 @@
+import os
 import time
 import datetime
 import subprocess
+import json
 from django.shortcuts import render
 from django.http.response import JsonResponse
 from django.views.decorators.csrf import ensure_csrf_cookie
@@ -45,17 +47,27 @@ def radom(request):
 @ensure_csrf_cookie
 def rank_update(request):
     if request.method == 'POST':
-        pass
+        # JSON文字列
+        data = json.loads(request.body)
+        obj = VideoModel.objects.filter(name=data['name']).first()
+        obj.rank = int(data['select'])
+        obj.save()
+        return JsonResponse({'ok': 1})
 
-    return JsonResponse({})
+    return JsonResponse({'ok': 0})
 
 
 @ensure_csrf_cookie
 def del_update(request):
     if request.method == 'POST':
-        pass
+        # JSON文字列
+        data = json.loads(request.body)
+        # ファイル削除
+        os.remove(f"{settings.MY_VIDEO_PATH}{data['name']}.mp4")
+        subprocess.Popen("python sync_mtdb.py", shell=True)
+        return JsonResponse({'ok': 1})
 
-    return JsonResponse({})
+    return JsonResponse({'ok': 0})
 
 
 def upload(request):
@@ -70,7 +82,6 @@ def upload(request):
             time.sleep(0.2)
             dt_now = datetime.datetime.now()
             out = dt_now.strftime('%Y%m%d%H%M%S%f')
-            # _ = fs.save(v.name, v)
             _ = fs.save(out + ".mp4", v)
 
         ctx = {

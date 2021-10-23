@@ -84,8 +84,8 @@ pip install gunicorn
 
 ```
 *.conf を作成
-$ sudo nano /etc/nginx/conf.d/django_video.conf
-$ sudo micro /etc/nginx/conf.d/django_video.conf
+sudo nano /etc/nginx/conf.d/django_video.conf
+sudo micro /etc/nginx/conf.d/django_video.conf
 
 
 server {
@@ -112,10 +112,10 @@ server {
 }
 
 設定ファイルの構文が正しいか確認
-$ sudo nginx -t
+sudo nginx -t
 
 nginxを再起動
-$ sudo systemctl restart nginx
+sudo systemctl restart nginx
 
 エラーログの場所
 /var/log/nginx/error.log
@@ -130,3 +130,57 @@ sudo chmod 755 /home/user/
 ```
 gunicorn --workers 3 --bind 127.0.0.1:8889 video_project.wsgi:application
 ```
+
+## サービス化
+
+systemd のユーザーごとの設定
+
+/home/user/.config/systemd/user
+
+この中に *.service ファイルを作成
+
+シェルスクリプトの実行権限
+
+chmod +x start.sh
+
+
+django_videos.service
+```
+[Unit]
+Description = django videos
+
+[Service]
+ExecStart = /home/user/repo/django_videos/start.sh
+Restart = no
+Type = simple
+
+[Install]
+WantedBy = default.target
+```
+
+```
+// 有効化
+systemctl --user enable django_videos.service
+
+// 自動起動の無効化
+systemctl --user disable django_videos
+
+// 自動起動が有効になっているか確認
+systemctl --user is-enabled django_videos
+
+// サービスが実行中かどうかの確認
+systemctl --user is-active django_videos
+
+// サービスの稼動状況確認
+systemctl --user status django_videos
+
+// サービスの開始
+systemctl --user start django_videos
+
+// サービスの停止
+systemctl --user stop django_videos
+
+// サービスの再起動
+systemctl --user restart django_videos
+```
+

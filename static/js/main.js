@@ -6,6 +6,7 @@ const video = document.querySelector("#video")
 const uid = document.querySelector("#uid")
 const videoModal = document.getElementById("videoModal")
 const videoModalOBJ = new bootstrap.Modal(videoModal)
+const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
 
 for (const v of imgs) {
     v.addEventListener("click", (e) => {
@@ -36,15 +37,17 @@ for (const v of evaluation) {
         const body = JSON.stringify(obj);
         const headers = {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken
         };
-        fetch("/rank_update", { method, headers, body })
+        fetch("/rank_update/", { method, headers, body })
             .then((res) => {
                 return res.json()
             })
             .then((json) => {
+                console.log(json)
                 if (json.ok === 1) {
-                    e.target.classList.replace("btn-outline-secondary", "btn-secondary")
+                    e.target.classList.replace("btn-outline-primary", "btn-primary")
                 }
             })
             .catch((e) => {
@@ -64,9 +67,10 @@ for (const v of del) {
         const body = JSON.stringify(obj);
         const headers = {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken
         };
-        fetch("/del_update", { method, headers, body })
+        fetch("/del_update/", { method, headers, body })
             .then((res) => {
                 return res.json()
             })
