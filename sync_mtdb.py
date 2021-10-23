@@ -106,17 +106,17 @@ def synchronize():
         if v[0]:
             # サムネがない
             if v[1] is False:
-                make_thumb(f"{settings.MY_VIDEO_PATH}{k}.mp4", f"{settings.MY_PATH}/%d.jpg")  # noqa
-                img0 = cv2.imread(f"{settings.MY_PATH}/0.jpg")
-                img1 = cv2.imread(f"{settings.MY_PATH}/1.jpg")
-                img2 = cv2.imread(f"{settings.MY_PATH}/2.jpg")
-                img3 = cv2.imread(f"{settings.MY_PATH}/3.jpg")
-                img4 = cv2.imread(f"{settings.MY_PATH}/4.jpg")
-                img5 = cv2.imread(f"{settings.MY_PATH}/5.jpg")
-                img6 = cv2.imread(f"{settings.MY_PATH}/6.jpg")
-                img7 = cv2.imread(f"{settings.MY_PATH}/7.jpg")
-                img8 = cv2.imread(f"{settings.MY_PATH}/8.jpg")
-                img9 = cv2.imread(f"{settings.MY_PATH}/9.jpg")
+                make_thumb(f"{settings.MY_VIDEO_PATH}{k}.mp4", f"{settings.MEDIA_ROOT}/%d.jpg")  # noqa
+                img0 = cv2.imread(f"{settings.MEDIA_ROOT}/0.jpg")
+                img1 = cv2.imread(f"{settings.MEDIA_ROOT}/1.jpg")
+                img2 = cv2.imread(f"{settings.MEDIA_ROOT}/2.jpg")
+                img3 = cv2.imread(f"{settings.MEDIA_ROOT}/3.jpg")
+                img4 = cv2.imread(f"{settings.MEDIA_ROOT}/4.jpg")
+                img5 = cv2.imread(f"{settings.MEDIA_ROOT}/5.jpg")
+                img6 = cv2.imread(f"{settings.MEDIA_ROOT}/6.jpg")
+                img7 = cv2.imread(f"{settings.MEDIA_ROOT}/7.jpg")
+                img8 = cv2.imread(f"{settings.MEDIA_ROOT}/8.jpg")
+                img9 = cv2.imread(f"{settings.MEDIA_ROOT}/9.jpg")
                 im_h = cv2.hconcat([img0, img1, img2, img3, img4, img5, img6, img7, img8, img9])  # noqa
                 # 拡張子なしのファイル名
                 cv2.imwrite(f"{settings.MY_THUMBNAIL_PATH}{k}.jpg", im_h)

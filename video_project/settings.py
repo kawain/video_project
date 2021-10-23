@@ -23,9 +23,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-h@c5x+=j&awxk9t)q#s#8frxxky$c3+mvfuiq*6e#xbte5#ea9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -118,6 +119,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+STATIC_ROOT = '/home/user/repo/django_videos/collect/static'
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 
@@ -129,11 +131,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # 追加
 
 # 自分用
-MY_PATH = "/home/user/videos/uploads"
-MY_VIDEO_PATH = "/home/user/videos/uploads/video/"
-MY_THUMBNAIL_PATH = "/home/user/videos/uploads/thumbnail/"
+MY_VIDEO_PATH = "/home/user/videos/media/video/"
+MY_THUMBNAIL_PATH = "/home/user/videos/media/thumbnail/"
 
-# pathlibを使ったパスの連結方法
-# MEDIA_ROOT = BASE_DIR / 'media'
-MEDIA_ROOT = MY_PATH
+MEDIA_ROOT = "/home/user/videos/media"
 MEDIA_URL = '/media/'
+
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# WSGI_APPLICATION = 'video_project.wsgi.application'

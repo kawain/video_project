@@ -66,3 +66,67 @@ from .models import VideoModel
 admin.site.register(VideoModel)
 ```
 
+## collectstatic
+
+```
+静的ファイルを一つの場所に集める
+collectstaticする前に、集める場所をsettings.pyに設定する
+STATIC_ROOT = '/home/user/Dropbox/app/django_videos/collect/static'
+
+python manage.py collectstatic
+```
+
+## nginx
+
+gunicorn で動かす設定
+
+pip install gunicorn
+
+```
+*.conf を作成
+$ sudo nano /etc/nginx/conf.d/django_video.conf
+$ sudo micro /etc/nginx/conf.d/django_video.conf
+
+
+server {
+    listen  80;
+    server_name 192.168.3.3;
+
+    client_max_body_size 2G;
+
+    location /static {
+        alias /home/user/repo/django_videos/collect/static;
+    }
+
+    location /media {
+        alias /home/user/videos/media;
+    }
+
+    location / {
+        proxy_pass http://127.0.0.1:8889;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $http_host;
+        proxy_redirect off;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+
+設定ファイルの構文が正しいか確認
+$ sudo nginx -t
+
+nginxを再起動
+$ sudo systemctl restart nginx
+
+エラーログの場所
+/var/log/nginx/error.log
+
+sudo chown -R "$USER":root /webdirectory
+sudo chmod -R 0755 /webdirectory
+
+sudo chmod 755 /home/user/
+
+```
+
+```
+gunicorn --workers 3 --bind 127.0.0.1:8889 video_project.wsgi:application
+```

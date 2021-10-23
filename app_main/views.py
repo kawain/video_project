@@ -76,11 +76,11 @@ def upload(request):
         ctx = {
             "title": "アップロード 完了"
         }
+        subprocess.Popen("python sync_mtdb.py", shell=True)
+
     else:
         ctx = {
             "title": "アップロード"
         }
-
-    subprocess.Popen("python sync_mtdb.py", shell=True)
 
     return render(request, "upload.html", context=ctx)
