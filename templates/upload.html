@@ -3,20 +3,7 @@
 
 <h1 class="my-4">動画アップロード</h1>
 
-<ul class="nav nav-pills my-4">
-    <li class="nav-item">
-        <a class="nav-link" href="/">ID降順</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="/rank">RANK降順</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="/radom">ランダム</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link active" href="/upload">アップロード</a>
-    </li>
-</ul>
+{% include 'include_menu.html' %}
 
 <form action="{% url 'upload' %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}

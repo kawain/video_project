@@ -17,6 +17,7 @@ def index(request):
         "title": "動画一覧",
         "lst": all,
         "num": len(all),
+        "menu": 1,
     }
 
     return render(request, "index.html", context=ctx)
@@ -28,6 +29,7 @@ def rank(request):
         "title": "動画一覧 ランク順",
         "lst": all,
         "num": len(all),
+        "menu": 2,
     }
 
     return render(request, "index.html", context=ctx)
@@ -39,6 +41,7 @@ def radom(request):
         "title": "動画一覧 ランダム",
         "lst": all,
         "num": len(all),
+        "menu": 3,
     }
 
     return render(request, "index.html", context=ctx)
@@ -85,13 +88,15 @@ def upload(request):
             _ = fs.save(out + ".mp4", v)
 
         ctx = {
-            "title": "アップロード 完了"
+            "title": "アップロード 完了",
+            "menu": 4,
         }
         subprocess.Popen("python sync_mtdb.py", shell=True)
 
     else:
         ctx = {
-            "title": "アップロード"
+            "title": "アップロード",
+            "menu": 4,
         }
 
     return render(request, "upload.html", context=ctx)

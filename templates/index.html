@@ -2,43 +2,60 @@
 {% block content %}
 <h1 class="my-4" id="page-top">動画一覧 <small class="text-muted" id="count">{{num}}</small></h1>
 
-<ul class="nav nav-pills my-4">
-    <li class="nav-item">
-        <a class="nav-link{% if sort_id %} active{% endif %}" href="/">ID降順</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link{% if sort_rank %} active{% endif %}" href="/rank">RANK降順</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link{% if sort_radom %} active{% endif %}" href="/radom">ランダム</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="/upload">アップロード</a>
-    </li>
-</ul>
+{% include 'include_menu.html' %}
 
 {% csrf_token %}
 
 {% for v in lst %}
-<div class="d-flex align-items-center gap-3 mb-3">
-    <div style="width: 85%;">
-        <img class="lazyload" data-src="/media/thumbnail/{{v.name}}.jpg" data-name="{{v.name}}">
+<div class="mb-5">
+    <div class="mb-2 d-flex justify-content-between align-items-center">
+        <div>
+            {% if v.rank == 10 %}
+            ⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐
+            {% elif v.rank == 9 %}
+            ⭐⭐⭐⭐⭐⭐⭐⭐⭐★
+            {% elif v.rank == 8 %}
+            ⭐⭐⭐⭐⭐⭐⭐⭐★★
+            {% elif v.rank == 7 %}
+            ⭐⭐⭐⭐⭐⭐⭐★★★
+            {% elif v.rank == 6 %}
+            ⭐⭐⭐⭐⭐⭐★★★★
+            {% elif v.rank == 5 %}
+            ⭐⭐⭐⭐⭐★★★★★
+            {% elif v.rank == 4 %}
+            ⭐⭐⭐⭐★★★★★★
+            {% elif v.rank == 3 %}
+            ⭐⭐⭐★★★★★★★
+            {% elif v.rank == 2 %}
+            ⭐⭐★★★★★★★★
+            {% elif v.rank == 1 %}
+            ⭐★★★★★★★★★
+            {% else %}
+            ★★★★★★★★★★
+            {% endif %}
+        </div>
+        <div>
+            <select id="select_{{v.name}}">
+                <option value="{{v.rank}}">{{v.rank}}</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+
+            <button class="btn btn-sm btn-outline-primary evaluation" data-name="{{v.name}}">評価</button>
+            <button class="btn btn-sm btn-outline-warning del" data-name="{{v.name}}">削除</button>
+
+        </div>
     </div>
-    <div style="width: 5%;">
-        <select id="select_{{v.name}}">
-            <option value="{{v.rank}}">{{v.rank}}</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-        </select>
-    </div>
-    <div style="width: 5%;">
-        <button class="btn btn btn-outline-primary evaluation" data-name="{{v.name}}">評価</button>
-    </div>
-    <div style="width: 5%;">
-        <button class="btn btn btn-outline-warning del" data-name="{{v.name}}">削除</button>
+    <div>
+        <img class="lazyload thumb" data-src="/media/thumbnail/{{v.name}}.jpg" data-name="{{v.name}}">
     </div>
 </div>
 {% endfor %}
