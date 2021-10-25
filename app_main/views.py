@@ -5,7 +5,6 @@ import subprocess
 import json
 from django.shortcuts import render
 from django.http.response import JsonResponse
-from django.views.decorators.csrf import ensure_csrf_cookie
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 from .models import VideoModel
@@ -47,7 +46,6 @@ def radom(request):
     return render(request, "index.html", context=ctx)
 
 
-@ensure_csrf_cookie
 def rank_update(request):
     if request.method == 'POST':
         # JSON文字列
@@ -60,7 +58,6 @@ def rank_update(request):
     return JsonResponse({'ok': 0})
 
 
-@ensure_csrf_cookie
 def del_update(request):
     if request.method == 'POST':
         # JSON文字列
@@ -100,3 +97,11 @@ def upload(request):
         }
 
     return render(request, "upload.html", context=ctx)
+
+
+def favorite(request):
+    ctx = {
+        "title": "お気に入り",
+        "menu": 5,
+    }
+    return render(request, "favorite.html", context=ctx)

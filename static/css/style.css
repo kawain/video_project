@@ -10,3 +10,33 @@ body {
 img {
     width: 100%;
 }
+
+.videoList {
+    display: flex;
+    gap: 30px;
+}
+
+.videoPlayer {
+    flex: 1;
+}
+
+.videoTag video {
+    width: 100%;
+}
+
+#favoriteList {
+    flex: 1;
+}
+
+.favorite_box {
+    margin: 20px 0;
+}
+
+.favorite_box1 {
+    margin: 5px 0;
+    text-align: right;
+}
+
+.favorite_box2 {
+    margin: 5px 0;
+}

@@ -1,22 +1,33 @@
-{% extends 'base.html' %}
-{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
 
-<h1 class="my-4">動画アップロード</h1>
+<head>
+    {% include 'include_head.html' %}
+</head>
 
-{% include 'include_menu.html' %}
+<body>
+    <div class="container">
 
-<form action="{% url 'upload' %}" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <div class="row g-3 align-items-center">
-        <div class="col-auto">
-            <label for="fileID" class="col-form-label">動画ファイルを選択</label>
-        </div>
-        <div class="col-auto">
-            <input type="file" name="upfile" id="fileID" class="form-control" multiple="multiple" accept=".mp4">
-        </div>
-        <div class="col-auto">
-            <button class="btn btn-secondary" type="submit">アップロード</button>
-        </div>
+        <h1 class="my-4">動画アップロード</h1>
+
+        {% include 'include_menu.html' %}
+
+        <form action="{% url 'upload' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row g-3 align-items-center">
+                <div class="col-auto">
+                    <label for="fileID" class="col-form-label">動画ファイルを選択</label>
+                </div>
+                <div class="col-auto">
+                    <input type="file" name="upfile" id="fileID" class="form-control" multiple="multiple" accept=".mp4">
+                </div>
+                <div class="col-auto">
+                    <button class="btn btn-secondary" type="submit">アップロード</button>
+                </div>
+            </div>
+        </form>
     </div>
-</form>
-{% endblock %}
+</body>
+
+</html>

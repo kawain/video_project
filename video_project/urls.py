@@ -26,6 +26,7 @@ urlpatterns = [
     path('upload/', views.upload, name='upload'),
     path('rank_update/', views.rank_update, name='rank_update'),
     path('del_update/', views.del_update, name='del_update'),
+    path('favorite/', views.favorite, name='favorite'),
     path('admin/', admin.site.urls),
 ]
 

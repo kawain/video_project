@@ -136,6 +136,3 @@ MY_THUMBNAIL_PATH = "/home/user/videos/media/thumbnail/"
 
 MEDIA_ROOT = "/home/user/videos/media"
 MEDIA_URL = '/media/'
-
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-# WSGI_APPLICATION = 'video_project.wsgi.application'

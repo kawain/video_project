@@ -1,80 +1,97 @@
-{% extends 'base.html' %}
-{% block content %}
-<h1 class="my-4" id="page-top">動画一覧 <small class="text-muted" id="count">{{num}}</small></h1>
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
 
-{% include 'include_menu.html' %}
+<head>
+    {% include 'include_head.html' %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.js"></script>
+</head>
 
-{% csrf_token %}
+<body>
+    <div class="container">
 
-{% for v in lst %}
-<div class="mb-5">
-    <div class="mb-2 d-flex justify-content-between align-items-center">
-        <div>
-            {% if v.rank == 10 %}
-            ⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐
-            {% elif v.rank == 9 %}
-            ⭐⭐⭐⭐⭐⭐⭐⭐⭐★
-            {% elif v.rank == 8 %}
-            ⭐⭐⭐⭐⭐⭐⭐⭐★★
-            {% elif v.rank == 7 %}
-            ⭐⭐⭐⭐⭐⭐⭐★★★
-            {% elif v.rank == 6 %}
-            ⭐⭐⭐⭐⭐⭐★★★★
-            {% elif v.rank == 5 %}
-            ⭐⭐⭐⭐⭐★★★★★
-            {% elif v.rank == 4 %}
-            ⭐⭐⭐⭐★★★★★★
-            {% elif v.rank == 3 %}
-            ⭐⭐⭐★★★★★★★
-            {% elif v.rank == 2 %}
-            ⭐⭐★★★★★★★★
-            {% elif v.rank == 1 %}
-            ⭐★★★★★★★★★
-            {% else %}
-            ★★★★★★★★★★
-            {% endif %}
-        </div>
-        <div>
-            <select id="select_{{v.name}}">
-                <option value="{{v.rank}}">{{v.rank}}</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-            </select>
+        <h1 class="my-4" id="page-top">動画一覧 <small class="text-muted" id="count">{{num}}</small></h1>
 
-            <button class="btn btn-sm btn-outline-primary evaluation" data-name="{{v.name}}">評価</button>
-            <button class="btn btn-sm btn-outline-warning del" data-name="{{v.name}}">削除</button>
+        {% include 'include_menu.html' %}
 
-        </div>
-    </div>
-    <div>
-        <img class="lazyload thumb" data-src="/media/thumbnail/{{v.name}}.jpg" data-name="{{v.name}}">
-    </div>
-</div>
-{% endfor %}
+        {% csrf_token %}
 
-<div class="d-grid my-4">
-    <a class="btn btn-primary" href="#page-top">ページトップへ戻る</a>
-</div>
+        {% for v in lst %}
+        <div class="mb-5">
+            <div class="mb-2 d-flex justify-content-between align-items-center">
+                <div>
+                    {% if v.rank == 10 %}
+                    ⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐
+                    {% elif v.rank == 9 %}
+                    ⭐⭐⭐⭐⭐⭐⭐⭐⭐★
+                    {% elif v.rank == 8 %}
+                    ⭐⭐⭐⭐⭐⭐⭐⭐★★
+                    {% elif v.rank == 7 %}
+                    ⭐⭐⭐⭐⭐⭐⭐★★★
+                    {% elif v.rank == 6 %}
+                    ⭐⭐⭐⭐⭐⭐★★★★
+                    {% elif v.rank == 5 %}
+                    ⭐⭐⭐⭐⭐★★★★★
+                    {% elif v.rank == 4 %}
+                    ⭐⭐⭐⭐★★★★★★
+                    {% elif v.rank == 3 %}
+                    ⭐⭐⭐★★★★★★★
+                    {% elif v.rank == 2 %}
+                    ⭐⭐★★★★★★★★
+                    {% elif v.rank == 1 %}
+                    ⭐★★★★★★★★★
+                    {% else %}
+                    ★★★★★★★★★★
+                    {% endif %}
+                </div>
+                <div>
+                    <select id="select_{{v.name}}">
+                        <option value="{{v.rank}}">{{v.rank}}</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
 
-<div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-body">
-                <video controls muted width="100%" id="video" src=""></video>
+                    <button class="btn btn-sm btn-outline-primary evaluation" data-name="{{v.name}}">評価</button>
+                    <button class="btn btn-sm btn-outline-warning del" data-name="{{v.name}}">削除</button>
+                    <button class="btn btn-sm btn-outline-info favorite" data-name="{{v.name}}">お気に入り追加</button>
+                </div>
             </div>
-            <div class="modal-footer">
-                <p class="text-dark" id="uid"></p>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <div>
+                <img class="lazyload thumb" data-src="/media/thumbnail/{{v.name}}.jpg" data-name="{{v.name}}">
             </div>
         </div>
+        {% endfor %}
+
+        <div class="d-grid my-4">
+            <a class="btn btn-primary" href="#page-top">ページトップへ戻る</a>
+        </div>
+
+        <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <video controls muted width="100%" id="video" src=""></video>
+                    </div>
+                    <div class="modal-footer">
+                        <p class="text-dark" id="uid"></p>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
-{% endblock %}
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+
+</html>

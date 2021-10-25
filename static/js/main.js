@@ -1,8 +1,12 @@
-if (document.getElementById("count")) {
+(function () {
+    if (!document.getElementById("count")) {
+        return
+    }
     let count = Number(document.getElementById("count").textContent)
     const thumb = document.querySelectorAll(".thumb")
     const evaluation = document.querySelectorAll(".evaluation")
     const del = document.querySelectorAll(".del")
+    const favorite = document.querySelectorAll(".favorite")
     const video = document.querySelector("#video")
     const uid = document.querySelector("#uid")
     const videoModal = document.getElementById("videoModal")
@@ -104,5 +108,23 @@ if (document.getElementById("count")) {
         }
     })
 
+    // localStorage に追加
+    for (const v of favorite) {
+        v.addEventListener("click", (e) => {
+            const name = e.target.dataset.name
+            let favoriteArr
+            if (localStorage.getItem("favorite") === null) {
+                favoriteArr = []
+            } else {
+                //キーが favorite のものを取得してオブジェクトに変換
+                favoriteArr = JSON.parse(localStorage.getItem("favorite"))
+            }
+            favoriteArr.push(name)
+            localStorage.setItem("favorite", JSON.stringify(favoriteArr))
+            e.target.classList.replace("btn-outline-info", "btn-info")
+        })
+    }
+
     lazyload()
-}
+}())
+

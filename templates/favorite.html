@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    {% include 'include_head.html' %}
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+
+        <h1 class="my-4">お気に入り</h1>
+
+        {% include 'include_menu.html' %}
+
+        <p>
+            サムネイルはドラッグ・アンド・ドロップで順番を移動できます。
+        </p>
+
+        <div class="videoList">
+            <div class="videoPlayer">
+                <div class="videoTag">
+                    <video src="" autoplay muted controls></video>
+                    <div class="text-center">
+                        <button id="pre" type="button" class="btn btn-sm btn-outline-secondary">前の動画</button>
+                        <button id="play" type="button" class="btn btn-sm btn-outline-primary">再生</button>
+                        <button id="stop" type="button" class="btn btn-sm btn-outline-danger">停止</button>
+                        <button id="next" type="button" class="btn btn-sm btn-outline-secondary">次の動画</button>
+                    </div>
+                </div>
+            </div>
+            <div id="favoriteList">
+            </div>
+        </div>
+        <div class="d-grid my-4">
+            <button id="save" class="btn btn-primary">並べ替え保存</button>
+        </div>
+        <div class="d-grid my-4">
+            <button id="allDel" class="btn btn-danger">ローカルストレージ完全削除</button>
+        </div>
+    </div>
+    <script src="{% static 'js/favorite.js' %}"></script>
+</body>
+
+</html>
