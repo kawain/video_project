@@ -110,7 +110,7 @@ def upload(request):
 
         ctx = {
             "title": "アップロード 完了",
-            "menu": 4,
+            "menu": 6,
         }
         subprocess.Popen("python sync_mtdb.py", shell=True)
 
