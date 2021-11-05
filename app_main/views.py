@@ -22,13 +22,37 @@ def index(request):
     return render(request, "index.html", context=ctx)
 
 
+def index2(request):
+    all = VideoModel.objects.order_by('id')
+    ctx = {
+        "title": "動画一覧",
+        "lst": all,
+        "num": len(all),
+        "menu": 2,
+    }
+
+    return render(request, "index.html", context=ctx)
+
+
 def rank(request):
     all = VideoModel.objects.order_by('-rank')
     ctx = {
         "title": "動画一覧 ランク順",
         "lst": all,
         "num": len(all),
-        "menu": 2,
+        "menu": 3,
+    }
+
+    return render(request, "index.html", context=ctx)
+
+
+def rank2(request):
+    all = VideoModel.objects.order_by('rank')
+    ctx = {
+        "title": "動画一覧 ランク順",
+        "lst": all,
+        "num": len(all),
+        "menu": 4,
     }
 
     return render(request, "index.html", context=ctx)
@@ -40,7 +64,7 @@ def radom(request):
         "title": "動画一覧 ランダム",
         "lst": all,
         "num": len(all),
-        "menu": 3,
+        "menu": 5,
     }
 
     return render(request, "index.html", context=ctx)
@@ -93,7 +117,7 @@ def upload(request):
     else:
         ctx = {
             "title": "アップロード",
-            "menu": 4,
+            "menu": 6,
         }
 
     return render(request, "upload.html", context=ctx)
@@ -102,6 +126,6 @@ def upload(request):
 def favorite(request):
     ctx = {
         "title": "お気に入り",
-        "menu": 5,
+        "menu": 7,
     }
     return render(request, "favorite.html", context=ctx)

@@ -21,7 +21,9 @@ from app_main import views
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('index2/', views.index2, name='index2'),
     path('rank/', views.rank, name='rank'),
+    path('rank2/', views.rank2, name='rank2'),
     path('radom/', views.radom, name='radom'),
     path('upload/', views.upload, name='upload'),
     path('rank_update/', views.rank_update, name='rank_update'),
